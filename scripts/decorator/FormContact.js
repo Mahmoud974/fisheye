@@ -17,32 +17,32 @@ class FormContact {
 
   displayForm() {
     return `
-      <section class="contact-box">
-        <legen class='title'>
+            <section class="contact-box" tabindex="-1">
+        <header class='title'>
           <h2>Contactez-moi<br/>${this.name}</h2>
-          <p id="close-form" aria-label="Fermer le formulaire">×</p>
-        </legen>
+          <p id="close-form" aria-label="Fermer le formulaire" tabindex="0">×</p>
+        </header>
         <form id="contact-form" aria-describedby="contact-form-description">
-          <legend class="form-group">
+          <article class="form-group">
             <label for="prenom">Prénom:</label>
             <input type="text" id="prenom" name="prenom" required aria-labelledby="prenom">
-          </legend>
-          <legend class="form-group">
+          </article>
+          <article class="form-group">
             <label for="nom">Nom:</label>
             <input type="text" id="nom" name="nom" required aria-labelledby="nom">
-          </legend>
-          <legend class="form-group">
+          </article>
+          <article class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required aria-labelledby="email">
-          </legend>
-          <legend class="form-group">
+          </article>
+          <article class="form-group">
             <label for="message">Votre message:</label>
             <textarea id="message" name="message" rows="5" required aria-labelledby="message"></textarea>
-          </legend>
+          </article>
           <button type="submit">Envoyer</button>
         </form>
-
       </section>
+
     `;
   }
 
