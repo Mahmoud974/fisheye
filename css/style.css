@@ -404,3 +404,10 @@ header h1{
 .dropdown:hover .dropbtn::after {
     content: '\25B2'; /* Up arrow */
 }
+.body-white {
+  background-color: white; /* Couleur de fond blanc */
+  overflow-y: hidden; /* Empêche le défilement vertical lorsque le formulaire est ouvert */
+}
+.carousel-title{
+  color: #901C1C;
+}

@@ -15,10 +15,10 @@ class FormContact {
   displayForm() {
     return `
       <section class="contact-box">
-        <legend class='title'>
+        <legen class='title'>
           <h2>Contactez-moi<br/>${this.name}</h2>
           <p id="close-form" aria-label="Fermer le formulaire">×</p>
-        </legend>
+        </legen>
         <form id="contact-form" aria-describedby="contact-form-description">
           <legend class="form-group">
             <label for="prenom">Prénom:</label>

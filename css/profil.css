@@ -17,7 +17,7 @@
 }
 
 #contact-button {
-  width: 15%;
+
   height: 69px;
   flex-shrink: 0;
   background: #901C1C;
@@ -218,5 +218,5 @@ nav ul li.Lev-1 > a::after {
 p {
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
+
 }
