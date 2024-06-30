@@ -1,4 +1,7 @@
 class FormContact {
+  constructor(name) {
+    this.name = name;
+  }
   showContactForm() {
     const contactFormContainer = document.querySelector(
       "#contact-form-container"

@@ -66,7 +66,7 @@ class ProfilUser extends Photographer {
 
     const contactButton = article.querySelector("#contact-button");
     contactButton.addEventListener("click", () =>
-      new FormContact().showContactForm()
+      new FormContact(this.name).showContactForm()
     );
 
     const sortOptions = article.querySelectorAll("#sort-dropdown a");
