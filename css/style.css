@@ -232,8 +232,8 @@ h1 {
 
 
 button {
-  
-  height: 69px;
+  background-color: none;
+ margin-left: 4px;
   flex-shrink: 0;
   background: white;
   color: white;
