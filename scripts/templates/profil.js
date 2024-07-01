@@ -23,7 +23,7 @@ class ProfilUser extends Photographer {
 
     // Construct article HTML
     article.innerHTML = `
-      <div>
+      <article>
         <div class="box">
           <div>
             <h1>${this.name}</h1>
@@ -59,7 +59,7 @@ class ProfilUser extends Photographer {
             <p>${this.price}€ /jour</p>
           </div>
         </div>
-      </div>
+      </article>
     `;
 
     main.appendChild(article);
@@ -136,7 +136,8 @@ class ProfilUser extends Photographer {
             <p class="title_img">${mediaItem.title}</p>
             <div>
               <span class="likes-quantity">${mediaItem.likes}</span>
-              <button class="like-button" data-liked="false">♥
+              <button class="like-button" data-liked="false">
+              ♥
               </button>
             </div>
           </div>

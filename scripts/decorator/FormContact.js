@@ -1,23 +1,65 @@
 class FormContact {
   constructor(name) {
     this.name = name;
+    this.overlayClass = "overlay-visible"; // Classe CSS pour l'arrière-plan opaque blanc
   }
+
   showContactForm() {
     const contactFormContainer = document.querySelector(
       "#contact-form-container"
     );
     contactFormContainer.innerHTML = this.displayForm();
+
+    // Ajouter la classe d'overlay à body
     document.body.classList.add(this.overlayClass);
+
     const closeButton = document.querySelector("#close-form");
     closeButton.addEventListener("click", () => this.closeContactForm());
+
+    // Gestion de la touche Entrée pour fermer le formulaire
+    closeButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === "Escape") {
+        this.closeContactForm();
+      }
+    });
+
     const form = document.querySelector("#contact-form");
     form.addEventListener("submit", (event) => this.handleSubmit(event));
+
+    // Gestion du clic en dehors du formulaire pour fermer
     document.addEventListener("click", this.handleClickOutsideForm);
+
+    // Mettre le focus sur le premier champ du formulaire
+    const firstNameInput = document.getElementById("prenom");
+    if (firstNameInput) {
+      firstNameInput.focus();
+    }
+
+    // Gérer la navigation au clavier pour accéder à la croix de fermeture
+    form.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        // Récupérer tous les éléments focusables dans le formulaire
+        const focusableElements = form.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+
+        // Mettre à jour l'index de l'élément focusable le plus proche
+        let index = Array.prototype.indexOf.call(
+          focusableElements,
+          event.target
+        );
+        if (index === focusableElements.length - 1) {
+          // Si l'élément actuel est le dernier focusable, focus sur la croix de fermeture
+          closeButton.focus();
+          event.preventDefault(); // Empêcher la tabulation par défaut pour sortir du formulaire
+        }
+      }
+    });
   }
 
   displayForm() {
     return `
-            <section class="contact-box" tabindex="-1">
+      <section class="contact-box" tabindex="-1">
         <header class='title'>
           <h2>Contactez-moi<br/>${this.name}</h2>
           <p id="close-form" aria-label="Fermer le formulaire" tabindex="0">×</p>
@@ -42,7 +84,6 @@ class FormContact {
           <button type="submit">Envoyer</button>
         </form>
       </section>
-
     `;
   }
 
@@ -51,14 +92,11 @@ class FormContact {
       "#contact-form-container"
     );
     contactFormContainer.innerHTML = "";
-    document.body.classList.remove(this.overlayClass);
-    document.removeEventListener("click", this.handleClickOutsideForm);
-  }
 
-  handleClickOutsideForm(event) {
-    const contactForm = document.querySelector(".contact-box");
-    if (!contactForm.contains(event.target)) {
-    }
+    // Supprimer la classe d'overlay de body
+    document.body.classList.remove(this.overlayClass);
+
+    document.removeEventListener("click", this.handleClickOutsideForm);
   }
 
   handleSubmit(event) {
@@ -72,9 +110,10 @@ class FormContact {
     if (!firstName || !lastName || !email || !message) {
       alert("Veuillez remplir tous les champs du formulaire.");
       return;
+    } else {
+      console.log(lastName + " " + email + " " + message);
     }
-    console.log(firstName + " " + lastName + " " + email);
-
+    // Actions à effectuer après la soumission du formulaire (ici, juste fermer le formulaire)
     this.closeContactForm();
   }
 }

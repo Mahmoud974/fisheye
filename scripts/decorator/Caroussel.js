@@ -74,7 +74,9 @@ class Carousel {
   }
 
   closeCarousel(container) {
-    document.body.removeChild(container);
+    if (container && container.parentNode === document.body) {
+      document.body.removeChild(container);
+    }
   }
 
   showPrevMedia(container) {

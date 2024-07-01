@@ -141,7 +141,7 @@ width: 80%;
  background-color: none;
  display: inline-block;
   font-size: 24px; /* Taille du cœur */
-  transform: scale(1.4);
+
 }
 
 .like-button.clicked {
@@ -226,4 +226,10 @@ p {
     font-size: 20px;
     font-weight: bold;
 
+}
+/* HEART */
+
+.heart{
+  width: 20%;
+  height: 20%;
 }
