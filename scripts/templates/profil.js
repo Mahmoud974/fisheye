@@ -24,7 +24,7 @@ class ProfilUser extends Photographer {
     // Construct article HTML
     article.innerHTML = `
       <article>
-        <div class="box">
+        <legend class="box">
           <div>
             <h1>${this.name}</h1>
             <p>${this.city}, ${this.country}</p>
@@ -32,7 +32,7 @@ class ProfilUser extends Photographer {
           </div>
           <button id="contact-button" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
           <img src="${this.picture}" alt="${this.name} portrait">
-        </div>
+        </legend>
         <div class="sort">
           <p>Trier par</p>
           <nav id="sort-dropdown">
