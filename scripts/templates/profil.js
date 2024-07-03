@@ -35,18 +35,25 @@ class ProfilUser extends Photographer {
         </legend>
         <div class="sort">
           <p>Trier par</p>
-          <nav id="sort-dropdown">
-            <ul>
-              <li class="Lev-1">
-                <a href="#" data-sort="popularity">Popularité</a>
-                <ul>
-                  <li><a href="#" data-sort="date">Date</a></li>
-                  <li><a href="#" data-sort="title">Titre</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
+         <nav id="sort-dropdown" class="dropdown">
+  <button class="dropbtn" data-sort="popularity" >
+  <a href="#" data-sort="popularity">Popularité</a>
+  </button>
+  <div class="dropdown-content">
+    <ul>
+     
+      <li><a href="#" data-sort="date">Date</a></li>
+      <li><a href="#" data-sort="title">Titre</a></li>
+    </ul>
+  </div>
+</nav>
         </div>
+
+
+
+
+
+
         <section class="box_img">
           ${mediaHtml}
         </section>
