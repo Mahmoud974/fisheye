@@ -60,6 +60,17 @@ class Carousel {
     nextButton.addEventListener("click", () =>
       this.showNextMedia(carouselContainer)
     );
+
+    // Écouteurs d'événements clavier
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        this.showPrevMedia(carouselContainer);
+      } else if (event.key === "ArrowRight") {
+        this.showNextMedia(carouselContainer);
+      } else if (event.key === "Escape") {
+        this.closeCarousel(carouselContainer);
+      }
+    });
   }
 
   closeCarousel(container) {
@@ -67,5 +78,28 @@ class Carousel {
       document.body.removeChild(container);
     }
   }
+
+  showPrevMedia(container) {
+    this.showMedia(container, this.currentIndex - 1);
+  }
+
+  showNextMedia(container) {
+    this.showMedia(container, this.currentIndex + 1);
+  }
+
+  showMedia(container, index) {
+    const mediaItems = container.querySelectorAll(".carousel-media");
+
+    if (index >= mediaItems.length) {
+      index = 0;
+    } else if (index < 0) {
+      index = mediaItems.length - 1;
+    }
+
+    mediaItems[this.currentIndex].style.display = "none";
+    mediaItems[index].style.display = "block";
+    const titleElement = container.querySelector(".carousel-title");
+    titleElement.textContent = this.media[index].title;
+    this.currentIndex = index;
+  }
 }
-//FONCTION GLOBAL JS
