@@ -209,13 +209,7 @@ nav ul li a {
     display: block;
 }
 
-/* Ajouter la flèche */
-nav ul li.Lev-1 > a::after {
-    content: '▼';
-    margin-left: 60px;
-    font-size: 12px; /* Ajustez la taille de la flèche selon vos besoins */
-    color: white; /* Vous pouvez ajuster la couleur de la flèche */
-}
+
 
 .gfg {
     font-size: 40px;
@@ -259,6 +253,7 @@ p {
 
 .dropbtn::after {
   content: 'V'; 
+  font-weight: bold;
   font-size: 12px;
   margin-top: 3px;
   margin-left: 10px;
@@ -268,8 +263,8 @@ p {
 }
 
 .dropdown-content {
-  /* display: none; */
-  display: flex;
+  display: none;
+  
   position: absolute;
   background-color: darkred;
   min-width: 100%;

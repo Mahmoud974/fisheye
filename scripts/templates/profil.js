@@ -172,7 +172,43 @@ class ProfilUser extends Photographer {
     return ""; // Handle other types if needed
   }
 
+  showMedia(container, index) {
+    const mediaItems = container.querySelectorAll(".carousel-media");
+
+    if (index >= mediaItems.length) {
+      index = 0;
+    } else if (index < 0) {
+      index = mediaItems.length - 1;
+    }
+
+    mediaItems[this.currentIndex].style.display = "none";
+    mediaItems[index].style.display = "block";
+    const titleElement = container.querySelector(".carousel-title");
+    titleElement.textContent = this.media[index].title;
+    this.currentIndex = index;
+  }
+
+  showPrevMedia(container) {
+    this.showMedia(container, this.currentIndex - 1);
+  }
+
+  showNextMedia(container) {
+    this.showMedia(container, this.currentIndex + 1);
+  }
+
   showCarousel(startIndex, media) {
+    // Écouteurs d'événements clavier
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        this.showPrevMedia(carouselContainer);
+        console.log("arrowLeft");
+      } else if (event.key === "ArrowRight") {
+        this.showNextMedia(carouselContainer);
+        console.log("arrowRight");
+      } else if (event.key === "Escape") {
+        this.closeCarousel(carouselContainer);
+      }
+    });
     const mediaItems = media.map((mediaItem) => {
       if (mediaItem.image) {
         return {
