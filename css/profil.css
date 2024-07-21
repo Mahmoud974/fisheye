@@ -33,9 +33,20 @@
   background: #DB8876;
   color: black;
 }
-
-
-
+.boxLike{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quantityHeart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.like-button .likeheart{
+  width: 60%;
+  height: 60%;
+}
 .box_img {
   display: flex;
   flex-wrap: wrap;
@@ -64,9 +75,7 @@
   margin-top: 10px;
 }
 
-#heart {
-  width: 20px;
-}
+
 
 /* Video dimension */
 .like-count{
@@ -141,7 +150,8 @@ width: 80%;
  background-color: none;
  display: inline-block;
   font-size: 24px; /* Taille du cœur */
-
+margin-left: 0;
+padding: 0;
 }
 
 .like-button.clicked {
@@ -224,7 +234,10 @@ p {
 
 }
 /* HEART */
-
+.likes-quantity{
+  font-size: 20px;
+  margin-right: 7px;
+}
 .heart{
   width: 20%;
   height: 20%;
@@ -237,6 +250,7 @@ p {
 
 .dropbtn {
   background-color: darkred;
+  display: flex;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -251,16 +265,15 @@ p {
   width: 150px;
 }
 
-.dropbtn::after {
-  content: 'V'; 
-  font-weight: bold;
-  font-size: 12px;
-  margin-top: 3px;
-  margin-left: 10px;
+
+.dropbtn img{
+transform: rotate(0deg);
+margin-left: 40px;
 }
-.dropdown:hover .dropbtn::after {
-  transform: rotate(180deg); /* Inverse la flèche quand le dropdown est ouvert */
+.dropbtn img:hover{
+transform: rotate(180deg);
 }
+
 
 .dropdown-content {
   display: none;
@@ -312,3 +325,37 @@ p {
 .dropbtn a {
   margin-left: -8px;
 }
+
+img .heartLike {
+        width: 20%;
+        }
+
+.heart {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background-color: darkred;
+    transform: rotate(-45deg);
+    margin: 10px;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: darkred;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 10px;
+}
+

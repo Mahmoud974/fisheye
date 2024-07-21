@@ -35,29 +35,31 @@ class ProfilUser extends Photographer {
         </legend>
         <div class="sort">
           <p>Trier par</p>
-          <nav id="sort-dropdown" class="dropdown">
-            <button class="dropbtn" data-sort="popularity">
-              <a href="#" data-sort="popularity">Popularité</a>
-              <img src="assets/arrow.png" alt="" />
-            </button>
-            <div class="dropdown-content">
-              <ul>
-                <li><a href="#" data-sort="date">Date</a></li>
-                <li><a href="#" data-sort="title">Titre</a></li>
-              </ul>
-            </div>
-          </nav>
+         <nav id="sort-dropdown" class="dropdown">
+  <button class="dropbtn" data-sort="popularity" >
+  <a href="#" data-sort="popularity">Popularité</a>
+  <img src="assets/arrow.png" alt="" />
+  </button>
+  <div class="dropdown-content">
+    <ul>
+     
+      <li><a href="#" data-sort="date">Date</a></li>
+      <li><a href="#" data-sort="title">Titre</a></li>
+    </ul>
+  </div>
+</nav>
         </div>
 
-        <section class="box_img">
+  <section class="box_img">
           ${mediaHtml}
         </section>
-
+    
         <!-- Container for contact form -->
         <div id="contact-form-container"></div>
         <div class="fixed-right">
           <div class="rectangle">
             <p id="total-likes">${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" /></span></p>
+            
             <p>${this.price}€ /jour</p>
           </div>
         </div>
@@ -85,24 +87,6 @@ class ProfilUser extends Photographer {
     return article;
   }
 
-  sortMedia(sortBy, media) {
-    if (sortBy === "popularity") {
-      media.sort((a, b) => b.likes - a.likes);
-    } else if (sortBy === "date") {
-      media.sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else if (sortBy === "title") {
-      media.sort((a, b) => a.title.localeCompare(b.title));
-    }
-
-    const boxImgSection = document.querySelector(".box_img");
-    boxImgSection.innerHTML = media
-      .map((mediaItem) => this.constructMediaHtml(mediaItem))
-      .join("");
-
-    // Re-attach events for media items and like buttons
-    this.attachMediaEvents(media);
-  }
-
   attachMediaEvents(media) {
     // Add events for media items
     const mediaItems = document.querySelectorAll(
@@ -121,29 +105,26 @@ class ProfilUser extends Photographer {
     const likeButtons = document.querySelectorAll(".like-button");
     likeButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
+        const button = event.target;
         const likesQuantitySpan = button.previousElementSibling;
-        if (likesQuantitySpan) {
-          let likes = parseInt(likesQuantitySpan.textContent, 10);
+        let likes = parseInt(likesQuantitySpan.textContent, 10);
 
-          if (button.getAttribute("data-liked") === "false") {
-            likes += 1;
-            this.totalLikes += 1;
-            button.setAttribute("data-liked", "true");
-            button.classList.add("clicked");
-          } else {
-            likes -= 1;
-            this.totalLikes -= 1;
-            button.setAttribute("data-liked", "false");
-            button.classList.remove("clicked");
-          }
-
-          likesQuantitySpan.textContent = likes;
-          document.querySelector(
-            "#total-likes"
-          ).innerHTML = `${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" /></span>`;
+        if (button.getAttribute("data-liked") === "false") {
+          likes += 1;
+          this.totalLikes += 1;
+          button.setAttribute("data-liked", "true");
+          button.classList.add("clicked");
         } else {
-          console.error("Likes quantity span not found for button.");
+          likes -= 1;
+          this.totalLikes -= 1;
+          button.setAttribute("data-liked", "false");
+          button.classList.remove("clicked");
         }
+
+        likesQuantitySpan.textContent = likes;
+        document.querySelector(
+          "#total-likes"
+        ).innerHTML = `${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" /></span>`;
       });
     });
   }
@@ -157,10 +138,10 @@ class ProfilUser extends Photographer {
       }" alt="${mediaItem.title}" class="media-content" tabindex="0"/>
           <div id="bloc_title_img">
             <p class="title_img">${mediaItem.title}</p>
-            <div class="boxLike">
+            <div class="quantityHeart">
               <span class="likes-quantity">${mediaItem.likes}</span>
               <button class="like-button" data-liked="false">
-                <div class="heart"></div>
+              <img src="/assets/heart.png" alt="" class="likeheart"/>
               </button>
             </div>
           </div>
@@ -178,8 +159,8 @@ class ProfilUser extends Photographer {
             <p class="title_video">${mediaItem.title}</p>
             <div class="like-count">
               <span class="likes-quantity">${mediaItem.likes}</span>
-              <button class="like-button" data-liked="false">
-                <div class="heart"></div>
+               <button class="like-button" data-liked="false">
+               
               </button>
             </div>
           </div>
@@ -251,6 +232,24 @@ class ProfilUser extends Photographer {
     } else {
       console.error("Carousel container not found in the DOM.");
     }
+  }
+
+  sortMedia(sortBy, media) {
+    if (sortBy === "popularity") {
+      media.sort((a, b) => b.likes - a.likes);
+    } else if (sortBy === "date") {
+      media.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === "title") {
+      media.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    const boxImgSection = document.querySelector(".box_img");
+    boxImgSection.innerHTML = media
+      .map((mediaItem) => this.constructMediaHtml(mediaItem))
+      .join("");
+
+    // Re-attach events for media items and like buttons
+    this.attachMediaEvents(media);
   }
 
   getMediaFolderName() {
