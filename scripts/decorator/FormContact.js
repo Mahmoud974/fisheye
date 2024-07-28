@@ -10,13 +10,11 @@ class FormContact {
     );
     contactFormContainer.innerHTML = this.displayForm();
 
-    // Ajouter la classe d'overlay à body
     document.body.classList.add(this.overlayClass);
 
     const closeButton = document.querySelector("#close-form");
     closeButton.addEventListener("click", () => this.closeContactForm());
 
-    // Gestion de la touche Entrée pour fermer le formulaire
     closeButton.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === "Escape") {
         this.closeContactForm();
@@ -26,32 +24,26 @@ class FormContact {
     const form = document.querySelector("#contact-form");
     form.addEventListener("submit", (event) => this.handleSubmit(event));
 
-    // Gestion du clic en dehors du formulaire pour fermer
     document.addEventListener("click", this.handleClickOutsideForm);
 
-    // Mettre le focus sur le premier champ du formulaire
     const firstNameInput = document.getElementById("prenom");
     if (firstNameInput) {
       firstNameInput.focus();
     }
 
-    // Gérer la navigation au clavier pour accéder à la croix de fermeture
     form.addEventListener("keydown", (event) => {
       if (event.key === "Tab") {
-        // Récupérer tous les éléments focusables dans le formulaire
         const focusableElements = form.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
 
-        // Mettre à jour l'index de l'élément focusable le plus proche
         let index = Array.prototype.indexOf.call(
           focusableElements,
           event.target
         );
         if (index === focusableElements.length - 1) {
-          // Si l'élément actuel est le dernier focusable, focus sur la croix de fermeture
           closeButton.focus();
-          event.preventDefault(); // Empêcher la tabulation par défaut pour sortir du formulaire
+          event.preventDefault();
         }
       }
     });

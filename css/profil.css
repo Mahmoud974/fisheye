@@ -124,6 +124,7 @@
   .box_img video {
     width: 100%;
     height: auto;
+    aspect-ratio: 1/1; /* Assure un ratio d'aspect carré */
     margin-bottom: 10px;
     justify-content: space-around;
   }
@@ -160,8 +161,6 @@ button #contact-button {
 .like-button.clicked {
   color: darkred; /* Rouge bordeaux */
 }
-
-
 
 /* Dropdown */
 .sort {
@@ -231,7 +230,6 @@ p {
 }
 
 /* HEART */
-
 
 .dropdown {
   position: relative;
@@ -315,6 +313,7 @@ p {
 img .heartLike {
   width: 20%;
 }
+
 /********************************HEART LIKE ****************************/
 .heart {
   position: relative;
@@ -345,9 +344,6 @@ img .heartLike {
   left: 0.3em; /* Ajuster pour centrer le cœur correctement */
 }
 
-
-p.carousel-title{
-  color:darkred;
-
-
+p.carousel-title {
+  color: darkred;
 }
