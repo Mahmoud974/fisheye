@@ -17,7 +17,7 @@
   align-items: center;
 }
 
-#contact-button {
+button#contact-button {
   height: 69px;
   flex-shrink: 0;
   background: #901C1C;
@@ -27,6 +27,7 @@
   font-size: 20px;
   box-shadow: 30px;
   cursor: pointer;
+  padding: 0 20px;
 }
 
 #contact-button:hover {
@@ -55,11 +56,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 90px;
+ 
 }
 
 .box_img img,
 .box_img video {
-  width: 400px; /* Taille par défaut pour les grandes tailles d'écran */
+  width: 400px;
   height: 400px;
   margin: 2px;
   object-fit: cover;
@@ -69,6 +72,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: -10px;
 }
 
 .title_img,
@@ -76,7 +80,7 @@
   color: #901C1C;
   font-weight: bold;
   font-size: 1.3em;
-  margin-top: 10px;
+ 
 }
 
 .like-count {
@@ -89,6 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: -10px;
 }
 
 .overlay-visible {

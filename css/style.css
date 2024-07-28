@@ -300,17 +300,29 @@ button {
     margin-bottom: 80px;
 }
 
+
+
 @media only screen and (max-width: 768px) {
-    .photographer_section {
+.carousel-content {
+  margin: 0;
+}
+  .carousel-close {
+  display: none;
+}
+.carousel-media{
+width: 300px;
+height: 300px;
+object-fit: cover;
+
+
+}
+  .photographer_section {
         grid-template-columns: 1fr;
         gap: 20px; 
         margin-top: 50px;
         margin-bottom: 40px;
       
     }
-}
-
-@media only screen and (max-width: 768px) {
    header {
     display: flex;
     flex-direction: column; 
@@ -326,27 +338,20 @@ header h1{
   text-align: center;
   margin-right: 0px;
 }
-}
-@media only screen and (max-width: 768px) {
-  .contact-box{
+ .contact-box{
     width: 80%;
     max-width: 400px;
     padding: 0 10px 10px;
  
   }
-}
-
-
-
-@media only screen and (max-width: 768px) {
   .carousel {
-    max-width: 90%; /* Ajustez la largeur maximale pour les petits écrans */
-    max-height: 90vh; /* Ajustez la hauteur maximale pour les petits écrans */
+    max-width: 90%; 
+    max-height: 90vh; 
   }
 
   .carousel-prev,
   .carousel-next {
-    font-size: 14px; /* Réduisez la taille de la police pour les flèches sur les petits écrans */
+    font-size: 14px;
   }
 }
 
