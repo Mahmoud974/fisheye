@@ -28,7 +28,7 @@ class Carousel {
               } else if (mediaItem.video) {
                 return `<video src="${
                   mediaItem.video
-                }" class="carousel-media carousel-video" controls style="display: ${
+                }" class="carousel-media carousel-image" controls style="display: ${
                   index === 0 ? "block" : "none"
                 };" alt="${mediaItem.title}"></video>`;
               }
