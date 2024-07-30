@@ -16,26 +16,26 @@ class Carousel {
           <img src="/assets/close.png" alt="Close" />
         </button>
         <button class="carousel-prev" aria-label="Previous">&#10094;</button>
-        <legend class="carousel-content">
+        <div class="carousel-content">
           ${this.media
             .map((mediaItem, index) => {
               if (mediaItem.image) {
                 return `<img src="${
                   mediaItem.image
-                }" class="carousel-media carousel-image" style="display: ${
+                }" class="carousel-media" style="display: ${
                   index === 0 ? "block" : "none"
                 };" alt="${mediaItem.title}">`;
               } else if (mediaItem.video) {
                 return `<video src="${
                   mediaItem.video
-                }" class="carousel-media carousel-image" controls style="display: ${
+                }" class="carousel-media" controls style="display: ${
                   index === 0 ? "block" : "none"
                 };" alt="${mediaItem.title}"></video>`;
               }
               return "";
             })
             .join("")}
-        </legend>
+        </div>
         <button class="carousel-next" aria-label="Next">&#10095;</button>
         <p class="carousel-title">${this.media[0].title}</p>
       </article>
@@ -61,8 +61,7 @@ class Carousel {
       this.showNextMedia(carouselContainer)
     );
 
-    // Écouteurs d'événements clavier
-    document.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", async (event) => {
       if (event.key === "ArrowLeft") {
         this.showPrevMedia(carouselContainer);
       } else if (event.key === "ArrowRight") {
@@ -90,13 +89,21 @@ class Carousel {
   showMedia(container, index) {
     const mediaItems = container.querySelectorAll(".carousel-media");
 
+    if (mediaItems.length === 0) {
+      console.error("No media items found");
+      return;
+    }
+
+    // Réinitialisez l'affichage des médias
+    mediaItems.forEach((item) => (item.style.display = "none"));
+
     if (index >= mediaItems.length) {
       index = 0;
     } else if (index < 0) {
       index = mediaItems.length - 1;
     }
 
-    mediaItems[this.currentIndex].style.display = "none";
+    // Affichez le média actuel
     mediaItems[index].style.display = "block";
     const titleElement = container.querySelector(".carousel-title");
     titleElement.textContent = this.media[index].title;

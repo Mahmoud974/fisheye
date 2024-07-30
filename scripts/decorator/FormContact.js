@@ -103,7 +103,7 @@ class FormContact {
       alert("Veuillez remplir tous les champs du formulaire.");
       return;
     } else {
-      console.log(lastName + " " + email + " " + message);
+      console.log(firstName + " " + lastName + " " + email + " " + message);
     }
     // Actions à effectuer après la soumission du formulaire (ici, juste fermer le formulaire)
     this.closeContactForm();
