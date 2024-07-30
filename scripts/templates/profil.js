@@ -76,6 +76,7 @@ class ProfilUser extends Photographer {
       option.addEventListener("click", (event) => {
         event.preventDefault();
         const sortBy = event.target.getAttribute("data-sort");
+        this.updateDropdownText(sortBy);
         this.sortMedia(sortBy, media);
       });
     });
@@ -145,6 +146,29 @@ class ProfilUser extends Photographer {
           console.error("Likes quantity span not found for button.");
         }
       });
+    });
+  }
+
+  updateDropdownText(selectedOption) {
+    const dropdownButton = document.querySelector("#sort-dropdown .dropbtn a");
+    const dropdownOptions = document.querySelectorAll(
+      "#sort-dropdown .dropdown-content a"
+    );
+
+    // Swap the button text with the clicked option text
+    dropdownOptions.forEach((option) => {
+      if (option.getAttribute("data-sort") === selectedOption) {
+        const tempText = dropdownButton.textContent;
+        dropdownButton.textContent = option.textContent;
+        option.textContent = tempText;
+
+        const tempDataSort = dropdownButton.getAttribute("data-sort");
+        dropdownButton.setAttribute(
+          "data-sort",
+          option.getAttribute("data-sort")
+        );
+        option.setAttribute("data-sort", tempDataSort);
+      }
     });
   }
 
