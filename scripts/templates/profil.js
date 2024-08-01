@@ -35,15 +35,15 @@ class ProfilUser extends Photographer {
         </legend>
         <div class="sort">
           <p>Trier par</p>
-          <nav id="sort-dropdown" class="dropdown">
-            <button class="dropbtn" data-sort="popularity">
+          <nav id="sort-dropdown" class="dropdown" aria-expanded="false">
+            <button class="dropbtn" data-sort="popularity" aria-haspopup="true" aria-expanded="false">
               <a href="#" data-sort="popularity">Popularité</a>
               <img src="assets/arrow.png" alt="" />
             </button>
-            <div class="dropdown-content">
+            <div class="dropdown-content" role="menu">
               <ul>
-                <li><a href="#" data-sort="date">Date</a></li>
-                <li><a href="#" data-sort="title">Titre</a></li>
+                <li><a href="#" data-sort="date" role="menuitem">Date</a></li>
+                <li><a href="#" data-sort="title" role="menuitem">Titre</a></li>
               </ul>
             </div>
           </nav>
@@ -71,6 +71,24 @@ class ProfilUser extends Photographer {
       new FormContact(this.name).showContactForm()
     );
 
+    const dropdownButton = article.querySelector("#sort-dropdown .dropbtn");
+    const dropdownContent = article.querySelector(
+      "#sort-dropdown .dropdown-content"
+    );
+    dropdownButton.addEventListener("click", () => {
+      const isExpanded =
+        dropdownButton.getAttribute("aria-expanded") === "true";
+      dropdownButton.setAttribute("aria-expanded", !isExpanded);
+      dropdownContent.style.display = isExpanded ? "none" : "block";
+    });
+
+    dropdownButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        dropdownButton.click();
+      }
+    });
+
     const sortOptions = article.querySelectorAll("#sort-dropdown a");
     sortOptions.forEach((option) => {
       option.addEventListener("click", (event) => {
@@ -78,6 +96,13 @@ class ProfilUser extends Photographer {
         const sortBy = event.target.getAttribute("data-sort");
         this.updateDropdownText(sortBy);
         this.sortMedia(sortBy, media);
+      });
+
+      option.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          option.click();
+        }
       });
     });
 

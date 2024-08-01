@@ -17,7 +17,7 @@
   align-items: center;
 }
 
-button#contact-button {
+#contact-button {
   height: 69px;
   flex-shrink: 0;
   background: #901C1C;
@@ -27,7 +27,7 @@ button#contact-button {
   font-size: 20px;
   box-shadow: 30px;
   cursor: pointer;
-  padding: 0 20px;
+  padding: 20px;
 }
 
 #contact-button:hover {
@@ -55,14 +55,13 @@ button#contact-button {
 .box_img {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 90px;
- 
+  justify-content: space-between;
 }
+
 
 .box_img img,
 .box_img video {
-  width: 400px;
+  width: 400px; /* Taille par défaut pour les grandes tailles d'écran */
   height: 400px;
   margin: 2px;
   object-fit: cover;
@@ -72,7 +71,6 @@ button#contact-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -10px;
 }
 
 .title_img,
@@ -80,7 +78,7 @@ button#contact-button {
   color: #901C1C;
   font-weight: bold;
   font-size: 1.3em;
- 
+  margin-top: 10px;
 }
 
 .like-count {
@@ -93,7 +91,6 @@ button#contact-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -10px;
 }
 
 .overlay-visible {
@@ -129,7 +126,6 @@ button#contact-button {
   .box_img video {
     width: 100%;
     height: auto;
-    aspect-ratio: 1/1; /* Assure un ratio d'aspect carré */
     margin-bottom: 10px;
     justify-content: space-around;
   }
@@ -166,6 +162,8 @@ button #contact-button {
 .like-button.clicked {
   color: darkred; /* Rouge bordeaux */
 }
+
+
 
 /* Dropdown */
 .sort {
@@ -232,9 +230,15 @@ nav ul li a {
 p {
   font-size: 20px;
   font-weight: bold;
+  
 }
-
+#carousel-title{
+  font-size: 26px;
+  font-weight: bold;
+  color: darkred;
+  margin-bottom: -12px;}
 /* HEART */
+
 
 .dropdown {
   position: relative;
@@ -318,7 +322,6 @@ p {
 img .heartLike {
   width: 20%;
 }
-
 /********************************HEART LIKE ****************************/
 .heart {
   position: relative;
@@ -349,6 +352,4 @@ img .heartLike {
   left: 0.3em; /* Ajuster pour centrer le cœur correctement */
 }
 
-p.carousel-title {
-  color: darkred;
-}
+

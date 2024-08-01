@@ -8,14 +8,16 @@ class Carousel {
   initCarousel() {
     const carouselContainer = document.createElement("div");
     carouselContainer.classList.add("carousel-container");
+    carouselContainer.setAttribute("role", "dialog");
+    carouselContainer.setAttribute("aria-labelledby", "carousel-title");
 
     carouselContainer.innerHTML = `
       <article class="carousel-overlay"></article>
       <article class="carousel">
-        <button class="carousel-close" aria-label="Close">
+        <button class="carousel-close" aria-label="Close" role="button">
           <img src="/assets/close.png" alt="Close" />
         </button>
-        <button class="carousel-prev" aria-label="Previous">&#10094;</button>
+        <button class="carousel-prev" aria-label="Previous" role="button">&#10094;</button>
         <div class="carousel-content">
           ${this.media
             .map((mediaItem, index) => {
@@ -30,14 +32,14 @@ class Carousel {
                   mediaItem.video
                 }" class="carousel-media" controls style="display: ${
                   index === 0 ? "block" : "none"
-                };" alt="${mediaItem.title}"></video>`;
+                };" aria-label="${mediaItem.title}"></video>`;
               }
               return "";
             })
             .join("")}
         </div>
-        <button class="carousel-next" aria-label="Next">&#10095;</button>
-        <p class="carousel-title">${this.media[0].title}</p>
+        <button class="carousel-next" aria-label="Next" role="button">&#10095;</button>
+        <p id="carousel-title" class="carousel-title">${this.media[0].title}</p>
       </article>
     `;
 
@@ -61,7 +63,7 @@ class Carousel {
       this.showNextMedia(carouselContainer)
     );
 
-    document.addEventListener("keydown", async (event) => {
+    document.addEventListener("keydown", (event) => {
       if (event.key === "ArrowLeft") {
         this.showPrevMedia(carouselContainer);
       } else if (event.key === "ArrowRight") {
@@ -70,6 +72,9 @@ class Carousel {
         this.closeCarousel(carouselContainer);
       }
     });
+
+    // Make sure focus is on the first interactive element
+    closeButton.focus();
   }
 
   closeCarousel(container) {
@@ -94,7 +99,7 @@ class Carousel {
       return;
     }
 
-    // Réinitialisez l'affichage des médias
+    // Hide all media items
     mediaItems.forEach((item) => (item.style.display = "none"));
 
     if (index >= mediaItems.length) {
@@ -103,10 +108,13 @@ class Carousel {
       index = mediaItems.length - 1;
     }
 
-    // Affichez le média actuel
+    // Show the current media item
     mediaItems[index].style.display = "block";
-    const titleElement = container.querySelector(".carousel-title");
+    const titleElement = container.querySelector("#carousel-title");
     titleElement.textContent = this.media[index].title;
     this.currentIndex = index;
+
+    // Set focus to the newly displayed media
+    mediaItems[index].focus();
   }
 }
