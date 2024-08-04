@@ -1,4 +1,13 @@
+/**
+ * Classe représentant le profil utilisateur d'un photographe.
+ * @extends Photographer
+ */
 class ProfilUser extends Photographer {
+  /**
+   * Crée une instance de ProfilUser.
+   * @param {Object} data - Les données du photographe.
+   * @param {Object} photographerModel - Le modèle du photographe pour gérer les médias.
+   */
   constructor(data, photographerModel) {
     super(data);
     this.pageUrl = window.location.href;
@@ -9,6 +18,10 @@ class ProfilUser extends Photographer {
     this.totalLikes = 0; // Total des likes de l'utilisateur
   }
 
+  /**
+   * Crée et renvoie l'élément de profil utilisateur.
+   * @returns {HTMLElement} L'élément de profil utilisateur.
+   */
   getUserProfilElement() {
     const main = document.querySelector("main");
     const article = document.createElement("article");
@@ -21,7 +34,6 @@ class ProfilUser extends Photographer {
       .map((mediaItem) => this.constructMediaHtml(mediaItem))
       .join("");
 
-    // Construct article HTML
     article.innerHTML = `
       <article>
         <legend class="box">
@@ -111,6 +123,11 @@ class ProfilUser extends Photographer {
     return article;
   }
 
+  /**
+   * Trie les médias selon le critère spécifié et met à jour l'affichage.
+   * @param {string} sortBy - Le critère de tri (popularity, date, title).
+   * @param {Array} media - La liste des médias à trier.
+   */
   sortMedia(sortBy, media) {
     if (sortBy === "popularity") {
       media.sort((a, b) => b.likes - a.likes);
@@ -125,25 +142,28 @@ class ProfilUser extends Photographer {
       .map((mediaItem) => this.constructMediaHtml(mediaItem))
       .join("");
 
-    // Re-attach events for media items and like buttons
     this.attachMediaEvents(media);
   }
 
+  /**
+   * Attache des événements aux éléments médias et aux boutons de like.
+   * @param {Array} media - La liste des médias.
+   */
   attachMediaEvents(media) {
-    // Add events for media items
     const mediaItems = document.querySelectorAll(
       ".media-item img, .media-item-video video"
     );
     mediaItems.forEach((item, index) => {
+      item.setAttribute("tabindex", "0");
       item.addEventListener("click", () => this.showCarousel(index, media));
       item.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
           this.showCarousel(index, media);
         }
       });
     });
 
-    // Add events for like buttons
     const likeButtons = document.querySelectorAll(".like-button");
     likeButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -174,13 +194,16 @@ class ProfilUser extends Photographer {
     });
   }
 
+  /**
+   * Met à jour le texte du bouton de tri avec l'option sélectionnée.
+   * @param {string} selectedOption - L'option sélectionnée (popularity, date, title).
+   */
   updateDropdownText(selectedOption) {
     const dropdownButton = document.querySelector("#sort-dropdown .dropbtn a");
     const dropdownOptions = document.querySelectorAll(
       "#sort-dropdown .dropdown-content a"
     );
 
-    // Swap the button text with the clicked option text
     dropdownOptions.forEach((option) => {
       if (option.getAttribute("data-sort") === selectedOption) {
         const tempText = dropdownButton.textContent;
@@ -197,6 +220,11 @@ class ProfilUser extends Photographer {
     });
   }
 
+  /**
+   * Construit le HTML pour un élément média.
+   * @param {Object} mediaItem - L'élément média.
+   * @returns {string} Le HTML de l'élément média.
+   */
   constructMediaHtml(mediaItem) {
     if (mediaItem.image) {
       return `
@@ -235,9 +263,14 @@ class ProfilUser extends Photographer {
         </div>
       `;
     }
-    return ""; // Handle other types if needed
+    return "";
   }
 
+  /**
+   * Affiche le média dans le carousel à l'index spécifié.
+   * @param {HTMLElement} container - Le conteneur du carousel.
+   * @param {number} index - L'index du média à afficher.
+   */
   showMedia(container, index) {
     const mediaItems = container.querySelectorAll(".carousel-media");
 
@@ -254,6 +287,11 @@ class ProfilUser extends Photographer {
     this.currentIndex = index;
   }
 
+  /**
+   * Affiche le carousel en commençant par le média à l'index spécifié.
+   * @param {number} startIndex - L'index du média de départ.
+   * @param {Array} media - La liste des médias.
+   */
   showCarousel(startIndex, media) {
     const mediaItems = media.map((mediaItem) => {
       if (mediaItem.image) {
@@ -282,6 +320,10 @@ class ProfilUser extends Photographer {
     }
   }
 
+  /**
+   * Obtient le nom du dossier média en fonction du nom du photographe.
+   * @returns {string} Le nom du dossier média.
+   */
   getMediaFolderName() {
     return this.name === "Ellie-Rose Wilkens"
       ? this.name.split("-")[0]
