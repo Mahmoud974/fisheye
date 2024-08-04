@@ -1,4 +1,14 @@
+/**
+ * Classe pour gérer les données des photographes et des médias.
+ */
+
 class PhotographerModel {
+  /**
+   * Crée une instance de PhotographerModel.
+   * @param {Object} data - Les données à utiliser pour initialiser les instances de Photographer et Media.
+   * @param {Object[]} data.photographers - La liste des photographes.
+   * @param {Object[]} data.media - La liste des médias associés aux photographes.
+   */
   constructor(data) {
     this.photographers = data.photographers.map(
       (photographer) => new Photographer(photographer)

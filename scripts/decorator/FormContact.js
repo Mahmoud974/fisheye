@@ -1,9 +1,19 @@
+/**
+ * Classe représentant un formulaire de contact.
+ */
 class FormContact {
+  /**
+   * Crée une instance de FormContact.
+   * @param {string} name - Le nom de la personne à contacter.
+   */
   constructor(name) {
     this.name = name;
     this.overlayClass = "overlay-visible"; // Classe CSS pour l'arrière-plan opaque blanc
   }
 
+  /**
+   * Affiche le formulaire de contact.
+   */
   showContactForm() {
     const contactFormContainer = document.querySelector(
       "#contact-form-container"
@@ -49,6 +59,10 @@ class FormContact {
     });
   }
 
+  /**
+   * Retourne le formulaire de contact au format HTML.
+   * @returns {string} Le formulaire de contact en HTML.
+   */
   displayForm() {
     return `
       <section class="contact-box" tabindex="-1">
@@ -79,18 +93,25 @@ class FormContact {
     `;
   }
 
+  /**
+   * Ferme le formulaire de contact.
+   */
   closeContactForm() {
     const contactFormContainer = document.querySelector(
       "#contact-form-container"
     );
     contactFormContainer.innerHTML = "";
 
-    // Supprimer la classe d'overlay de body
+    // Supprime la classe d'overlay de body
     document.body.classList.remove(this.overlayClass);
 
     document.removeEventListener("click", this.handleClickOutsideForm);
   }
 
+  /**
+   * Gère la soumission du formulaire.
+   * @param {Event} event - L'événement de soumission du formulaire.
+   */
   handleSubmit(event) {
     event.preventDefault();
 

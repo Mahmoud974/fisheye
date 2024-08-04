@@ -1,4 +1,13 @@
+/**
+ * Classe représentant le profil d'un photographe, héritant de la classe Photographer.
+ * @extends Photographer
+ */
 class ProfilUser extends Photographer {
+  /**
+   * Crée une instance de ProfilUser.
+   * @param {Object} data - Les données du photographe.
+   * @param {PhotographerModel} photographerModel - Instance de PhotographerModel contenant les données des médias.
+   */
   constructor(data, photographerModel) {
     super(data);
     this.pageUrl = window.location.href;
@@ -9,6 +18,10 @@ class ProfilUser extends Photographer {
     this.totalLikes = 0; // Total des likes de l'utilisateur
   }
 
+  /**
+   * Crée et retourne l'élément HTML du profil utilisateur.
+   * @returns {HTMLElement} L'article HTML contenant les informations du profil utilisateur.
+   */
   getUserProfilElement() {
     const main = document.querySelector("main");
     const article = document.createElement("article");
@@ -21,7 +34,6 @@ class ProfilUser extends Photographer {
       .map((mediaItem) => this.constructMediaHtml(mediaItem))
       .join("");
 
-    // Construct article HTML
     article.innerHTML = `
       <article>
         <legend class="box">
@@ -42,24 +54,19 @@ class ProfilUser extends Photographer {
   </button>
   <div class="dropdown-content">
     <ul>
-     
       <li><a href="#" data-sort="date">Date</a></li>
       <li><a href="#" data-sort="title">Titre</a></li>
     </ul>
   </div>
 </nav>
         </div>
-
-  <section class="box_img">
+        <section class="box_img">
           ${mediaHtml}
         </section>
-    
-        <!-- Container for contact form -->
         <div id="contact-form-container"></div>
         <div class="fixed-right">
           <div class="rectangle">
             <p id="total-likes">${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" /></span></p>
-            
             <p>${this.price}€ /jour</p>
           </div>
         </div>
@@ -87,6 +94,10 @@ class ProfilUser extends Photographer {
     return article;
   }
 
+  /**
+   * Attache des événements aux éléments de média (images, vidéos et boutons de like).
+   * @param {Media[]} media - La liste des médias à traiter.
+   */
   attachMediaEvents(media) {
     // Add events for media items
     const mediaItems = document.querySelectorAll(
@@ -129,6 +140,11 @@ class ProfilUser extends Photographer {
     });
   }
 
+  /**
+   * Génère le HTML pour un élément média (image ou vidéo).
+   * @param {Media} mediaItem - L'élément média à afficher.
+   * @returns {string} Le code HTML de l'élément média.
+   */
   constructMediaHtml(mediaItem) {
     if (mediaItem.image) {
       return `
@@ -141,7 +157,7 @@ class ProfilUser extends Photographer {
             <div class="quantityHeart">
               <span class="likes-quantity">${mediaItem.likes}</span>
               <button class="like-button" data-liked="false">
-              <img src="/assets/heart.png" alt="" class="likeheart"/>
+                <img src="/assets/heart.png" alt="" class="likeheart"/>
               </button>
             </div>
           </div>
@@ -159,17 +175,20 @@ class ProfilUser extends Photographer {
             <p class="title_video">${mediaItem.title}</p>
             <div class="like-count">
               <span class="likes-quantity">${mediaItem.likes}</span>
-               <button class="like-button" data-liked="false">
-               
-              </button>
+              <button class="like-button" data-liked="false"></button>
             </div>
           </div>
         </div>
       `;
     }
-    return ""; // Handle other types if needed
+    return "";
   }
 
+  /**
+   * Affiche un média dans le carrousel.
+   * @param {HTMLElement} container - Le conteneur du carrousel.
+   * @param {number} index - L'index du média à afficher.
+   */
   showMedia(container, index) {
     const mediaItems = container.querySelectorAll(".carousel-media");
 
@@ -186,23 +205,34 @@ class ProfilUser extends Photographer {
     this.currentIndex = index;
   }
 
+  /**
+   * Affiche le média précédent dans le carrousel.
+   * @param {HTMLElement} container - Le conteneur du carrousel.
+   */
   showPrevMedia(container) {
     this.showMedia(container, this.currentIndex - 1);
   }
 
+  /**
+   * Affiche le média suivant dans le carrousel.
+   * @param {HTMLElement} container - Le conteneur du carrousel.
+   */
   showNextMedia(container) {
     this.showMedia(container, this.currentIndex + 1);
   }
 
+  /**
+   * Affiche le carrousel avec les médias.
+   * @param {number} startIndex - L'index de départ pour le carrousel.
+   * @param {Media[]} media - La liste des médias à afficher dans le carrousel.
+   */
   showCarousel(startIndex, media) {
     // Écouteurs d'événements clavier
     document.addEventListener("keydown", (event) => {
       if (event.key === "ArrowLeft") {
         this.showPrevMedia(carouselContainer);
-        console.log("arrowLeft");
       } else if (event.key === "ArrowRight") {
         this.showNextMedia(carouselContainer);
-        console.log("arrowRight");
       } else if (event.key === "Escape") {
         this.closeCarousel(carouselContainer);
       }
@@ -234,6 +264,11 @@ class ProfilUser extends Photographer {
     }
   }
 
+  /**
+   * Trie les médias en fonction du critère sélectionné.
+   * @param {string} sortBy - Le critère de tri (popularité, date, titre).
+   * @param {Media[]} media - La liste des médias à trier.
+   */
   sortMedia(sortBy, media) {
     if (sortBy === "popularity") {
       media.sort((a, b) => b.likes - a.likes);
@@ -252,6 +287,10 @@ class ProfilUser extends Photographer {
     this.attachMediaEvents(media);
   }
 
+  /**
+   * Obtient le nom du dossier des médias en fonction du nom du photographe.
+   * @returns {string} Le nom du dossier des médias.
+   */
   getMediaFolderName() {
     return this.name === "Ellie-Rose Wilkens"
       ? this.name.split("-")[0]

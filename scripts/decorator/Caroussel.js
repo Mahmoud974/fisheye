@@ -1,10 +1,22 @@
+/**
+ * Classe représentant un Carousel.
+ */
 class Carousel {
+  /**
+   * Crée un Carousel.
+   * @param {Array} media - Les éléments média à afficher dans le carousel.
+   */
   constructor(media) {
     this.media = media;
     this.currentIndex = 0;
     this.initCarousel();
   }
 
+  /**
+   * Initialise le carousel.
+   * Crée le conteneur du carousel et configure les écouteurs d'événements.
+   * @private
+   */
   initCarousel() {
     const carouselContainer = document.createElement("div");
     carouselContainer.classList.add("carousel-container");
@@ -14,10 +26,10 @@ class Carousel {
     carouselContainer.innerHTML = `
       <article class="carousel-overlay"></article>
       <article class="carousel">
-        <button class="carousel-close" aria-label="Close" role="button">
-          <img src="/assets/close.png" alt="Close" />
+        <button class="carousel-close" aria-label="Fermer" role="button">
+          <img src="/assets/close.png" alt="Fermer" />
         </button>
-        <button class="carousel-prev" aria-label="Previous" role="button">&#10094;</button>
+        <button class="carousel-prev" aria-label="Précédent" role="button">&#10094;</button>
         <div class="carousel-content">
           ${this.media
             .map((mediaItem, index) => {
@@ -38,7 +50,7 @@ class Carousel {
             })
             .join("")}
         </div>
-        <button class="carousel-next" aria-label="Next" role="button">&#10095;</button>
+        <button class="carousel-next" aria-label="Suivant" role="button">&#10095;</button>
         <p id="carousel-title" class="carousel-title">${this.media[0].title}</p>
       </article>
     `;
@@ -73,33 +85,51 @@ class Carousel {
       }
     });
 
-    // Make sure focus is on the first interactive element
+    // S'assurer que le focus est sur le premier élément interactif
     closeButton.focus();
   }
 
+  /**
+   * Ferme le carousel.
+   * Supprime le conteneur du carousel du DOM.
+   * @param {HTMLElement} container - Le conteneur du carousel.
+   */
   closeCarousel(container) {
     if (container && container.parentNode === document.body) {
       document.body.removeChild(container);
     }
   }
 
+  /**
+   * Affiche l'élément média précédent.
+   * @param {HTMLElement} container - Le conteneur du carousel.
+   */
   showPrevMedia(container) {
     this.showMedia(container, this.currentIndex - 1);
   }
 
+  /**
+   * Affiche l'élément média suivant.
+   * @param {HTMLElement} container - Le conteneur du carousel.
+   */
   showNextMedia(container) {
     this.showMedia(container, this.currentIndex + 1);
   }
 
+  /**
+   * Affiche l'élément média à l'index donné.
+   * @param {HTMLElement} container - Le conteneur du carousel.
+   * @param {number} index - L'index de l'élément média à afficher.
+   */
   showMedia(container, index) {
     const mediaItems = container.querySelectorAll(".carousel-media");
 
     if (mediaItems.length === 0) {
-      console.error("No media items found");
+      console.error("Aucun élément média trouvé");
       return;
     }
 
-    // Hide all media items
+    // Masquer tous les éléments média
     mediaItems.forEach((item) => (item.style.display = "none"));
 
     if (index >= mediaItems.length) {
@@ -108,13 +138,13 @@ class Carousel {
       index = mediaItems.length - 1;
     }
 
-    // Show the current media item
+    // Afficher l'élément média actuel
     mediaItems[index].style.display = "block";
     const titleElement = container.querySelector("#carousel-title");
     titleElement.textContent = this.media[index].title;
     this.currentIndex = index;
 
-    // Set focus to the newly displayed media
+    // Mettre le focus sur l'élément média affiché
     mediaItems[index].focus();
   }
 }

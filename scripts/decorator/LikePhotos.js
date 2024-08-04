@@ -1,8 +1,19 @@
+/**
+ * Classe pour gérer les photos avec la possibilité de les aimer.
+ */
 class LikePhotos {
+  /**
+   * Trie les médias et met à jour l'affichage.
+   * @param {string} sortBy - Critère de tri des médias (ex. : 'title').
+   */
   sortMedia(sortBy) {
+    // Trier les médias selon le critère spécifié
     const sortedMedia = this.photographerModel.sortMediaByTitle(this.id);
 
+    // Sélectionner la section contenant les médias
     const boxImgSection = document.querySelector(".box_img");
+
+    // Mettre à jour le contenu HTML avec les médias triés
     boxImgSection.innerHTML = sortedMedia
       .map((mediaItem) => {
         if (mediaItem.image) {
@@ -10,7 +21,8 @@ class LikePhotos {
           <article class="media-item">
             <img src="assets/photographers/photos/${this.getMediaFolderName()}/${
             mediaItem.image
-          }" alt="${mediaItem.title}" class="media-content" tabindex="0"/>
+          }"
+                 alt="${mediaItem.title}" class="media-content" tabindex="0"/>
             <legend id="bloc_title_img">
               <p class="title_img">${mediaItem.title}</p>
               <legend>
@@ -26,7 +38,8 @@ class LikePhotos {
             <video controls class="media-content" width="400" height="300" tabindex="0">
               <source src="assets/photographers/photos/${this.getMediaFolderName()}/${
             mediaItem.video
-          }" type="video/mp4">
+          }"
+                      type="video/mp4">
             </video>
             <div id="bloc_title_video">
               <p class="title_video">${mediaItem.title}</p>
@@ -38,11 +51,11 @@ class LikePhotos {
           </div>
         `;
         }
-        return ""; // Handle other types if needed
+        return ""; // Gérer d'autres types si nécessaire
       })
       .join("");
 
-    // Re-attach event listeners for like buttons
+    // Ré-attacher les écouteurs d'événements pour les boutons "j'aime"
     const likeButtons = boxImgSection.querySelectorAll(".like-button");
     likeButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -61,11 +74,11 @@ class LikePhotos {
         }
 
         likesQuantitySpan.textContent = likes;
-        // Update total likes count if needed
+        // Mettre à jour le nombre total de j'aime si nécessaire
       });
     });
 
-    // Re-attach event listeners for media items
+    // Ré-attacher les écouteurs d'événements pour les éléments multimédia
     const mediaItems = boxImgSection.querySelectorAll(
       ".media-item img, .media-item-video video"
     );
