@@ -149,6 +149,10 @@ class ProfilUser extends Photographer {
    * Attache des événements aux éléments médias et aux boutons de like.
    * @param {Array} media - La liste des médias.
    */
+  /**
+   * Attache des événements aux éléments médias et aux boutons de like.
+   * @param {Array} media - La liste des médias.
+   */
   attachMediaEvents(media) {
     const mediaItems = document.querySelectorAll(
       ".media-item img, .media-item-video video"
@@ -166,6 +170,10 @@ class ProfilUser extends Photographer {
 
     const likeButtons = document.querySelectorAll(".like-button");
     likeButtons.forEach((button) => {
+      // Ajouter aria-label et aria-pressed
+      button.setAttribute("aria-label", "Ajouter un like");
+      button.setAttribute("aria-pressed", "false");
+
       button.addEventListener("click", (event) => {
         const likesQuantitySpan = button.previousElementSibling;
         if (likesQuantitySpan) {
@@ -176,11 +184,15 @@ class ProfilUser extends Photographer {
             this.totalLikes += 1;
             button.setAttribute("data-liked", "true");
             button.classList.add("clicked");
+            button.setAttribute("aria-label", "Retirer un like");
+            button.setAttribute("aria-pressed", "true");
           } else {
             likes -= 1;
             this.totalLikes -= 1;
             button.setAttribute("data-liked", "false");
             button.classList.remove("clicked");
+            button.setAttribute("aria-label", "Ajouter un like");
+            button.setAttribute("aria-pressed", "false");
           }
 
           likesQuantitySpan.textContent = likes;
@@ -236,7 +248,7 @@ class ProfilUser extends Photographer {
             <p class="title_img">${mediaItem.title}</p>
             <div class="boxLike">
               <span class="likes-quantity">${mediaItem.likes}</span>
-              <button class="like-button" data-liked="false">
+              <button class="like-button" data-liked="false" >
                 <div class="heart"></div>
               </button>
             </div>

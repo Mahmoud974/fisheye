@@ -22,6 +22,7 @@ class Carousel {
     carouselContainer.classList.add("carousel-container");
     carouselContainer.setAttribute("role", "dialog");
     carouselContainer.setAttribute("aria-labelledby", "carousel-title");
+    carouselContainer.setAttribute("tabindex", "-1");
 
     carouselContainer.innerHTML = `
       <article class="carousel-overlay"></article>
@@ -38,13 +39,13 @@ class Carousel {
                   mediaItem.image
                 }" class="carousel-media" style="display: ${
                   index === 0 ? "block" : "none"
-                };" alt="${mediaItem.title}">`;
+                };" alt="${mediaItem.title}" tabindex="0">`;
               } else if (mediaItem.video) {
                 return `<video src="${
                   mediaItem.video
                 }" class="carousel-media" controls style="display: ${
                   index === 0 ? "block" : "none"
-                };" aria-label="${mediaItem.title}"></video>`;
+                };" aria-label="${mediaItem.title}" tabindex="0"></video>`;
               }
               return "";
             })
@@ -87,6 +88,9 @@ class Carousel {
 
     // S'assurer que le focus est sur le premier élément interactif
     closeButton.focus();
+
+    // Gérer le cycle du focus à l'intérieur du carrousel
+    this.trapFocus(carouselContainer);
   }
 
   /**
@@ -146,5 +150,37 @@ class Carousel {
 
     // Mettre le focus sur l'élément média affiché
     mediaItems[index].focus();
+  }
+
+  /**
+   * Gère le cycle du focus à l'intérieur du carrousel.
+   * @param {HTMLElement} container - Le conteneur du carousel.
+   * @private
+   */
+  trapFocus(container) {
+    const focusableElements = container.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstFocusableElement = focusableElements[0];
+    const lastFocusableElement =
+      focusableElements[focusableElements.length - 1];
+
+    container.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        if (event.shiftKey) {
+          // Shift + Tab
+          if (document.activeElement === firstFocusableElement) {
+            event.preventDefault();
+            lastFocusableElement.focus();
+          }
+        } else {
+          // Tab
+          if (document.activeElement === lastFocusableElement) {
+            event.preventDefault();
+            firstFocusableElement.focus();
+          }
+        }
+      }
+    });
   }
 }

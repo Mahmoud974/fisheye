@@ -72,12 +72,12 @@ class FormContact {
         </header>
         <form id="contact-form" aria-describedby="contact-form-description">
           <article class="form-group">
-            <label for="prenom">Prénom:</label>
-            <input type="text" id="prenom" name="prenom" required aria-labelledby="prenom">
+            <label for="prenom" >Prénom:</label>
+            <input type="text" id="prenom" name="prenom" required aria-required="true" aria-describedby="prenom-description">
           </article>
           <article class="form-group">
             <label for="nom">Nom:</label>
-            <input type="text" id="nom" name="nom" required aria-labelledby="nom">
+            <input type="text" id="nom" name="nom" required aria-required="true" aria-describedby="nom-description">
           </article>
           <article class="form-group">
             <label for="email">Email:</label>
@@ -85,7 +85,7 @@ class FormContact {
           </article>
           <article class="form-group">
             <label for="message">Votre message:</label>
-            <textarea id="message" name="message" rows="5" required aria-labelledby="message"></textarea>
+            <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="message-description"></textarea>
           </article>
           <button type="submit">Envoyer</button>
         </form>
