@@ -43,7 +43,7 @@ class ProfilUser extends Photographer {
             <p>${this.tagline}</p>
           </div>
           <button id="contact-button" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
-          <img src="${this.picture}" alt="${this.name} portrait">
+          <img src="${this.picture}" alt="${this.name} portrait" alt="Logo" >
         </legend>
         <div class="sort">
           <p>Trier par</p>
@@ -69,7 +69,7 @@ class ProfilUser extends Photographer {
         <div id="contact-form-container"></div>
         <div class="fixed-right">
           <div class="rectangle">
-            <p id="total-likes">${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" /></span></p>
+            <p id="total-likes">${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" alt="heart" /></span></p>
             <p>${this.price}€ /jour</p>
           </div>
         </div>
