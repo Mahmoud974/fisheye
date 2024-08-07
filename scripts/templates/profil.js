@@ -42,7 +42,7 @@ class ProfilUser extends Photographer {
             <p>${this.city}, ${this.country}</p>
             <p>${this.tagline}</p>
           </div>
-          <button id="contact-button" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
+          <button class="contact-button" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
           <img src="${this.picture}" alt="${this.name} portrait" alt="Logo" >
         </legend>
         <div class="sort">
@@ -66,10 +66,10 @@ class ProfilUser extends Photographer {
         </section>
 
         <!-- Container for contact form -->
-        <div id="contact-form-container"></div>
+        <div class="contact-form-container"></div>
         <div class="fixed-right">
           <div class="rectangle">
-            <p id="total-likes">${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart" id="heart" alt="heart" /></span></p>
+            <p id="total-likes">${this.totalLikes} <span><img src="/assets/icons/heart.png" alt="heart"  alt="heart" /></span></p>
             <p>${this.price}€ /jour</p>
           </div>
         </div>
@@ -78,7 +78,7 @@ class ProfilUser extends Photographer {
 
     main.appendChild(article);
 
-    const contactButton = article.querySelector("#contact-button");
+    const contactButton = article.querySelector(".contact-button");
     contactButton.addEventListener("click", () =>
       new FormContact(this.name).showContactForm()
     );
@@ -244,7 +244,7 @@ class ProfilUser extends Photographer {
           <img src="assets/photographers/photos/${this.getMediaFolderName()}/${
         mediaItem.image
       }" alt="${mediaItem.title}" class="media-content" tabindex="0"/>
-          <div id="bloc_title_img">
+          <div class="bloc_title_img">
             <p class="title_img">${mediaItem.title}</p>
             <div class="boxLike">
               <span class="likes-quantity">${mediaItem.likes}</span>
@@ -263,7 +263,7 @@ class ProfilUser extends Photographer {
         mediaItem.video
       }" type="video/mp4">
           </video>
-          <div id="bloc_title_video">
+          <div class="bloc_title_video">
             <p class="title_video">${mediaItem.title}</p>
             <div class="like-count">
               <span class="likes-quantity">${mediaItem.likes}</span>

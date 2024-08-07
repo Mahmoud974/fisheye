@@ -16,7 +16,7 @@ class FormContact {
    */
   showContactForm() {
     const contactFormContainer = document.querySelector(
-      "#contact-form-container"
+      ".contact-form-container"
     );
     contactFormContainer.innerHTML = this.displayForm();
 
@@ -98,7 +98,7 @@ class FormContact {
    */
   closeContactForm() {
     const contactFormContainer = document.querySelector(
-      "#contact-form-container"
+      ".contact-form-container"
     );
     contactFormContainer.innerHTML = "";
 
